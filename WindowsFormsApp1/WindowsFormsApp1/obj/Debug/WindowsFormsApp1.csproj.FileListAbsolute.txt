@@ -1,0 +1,12 @@
+C:\Users\Podor\Documents\GitHub\kursovik-c-\WindowsFormsApp1\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.exe.config
+C:\Users\Podor\Documents\GitHub\kursovik-c-\WindowsFormsApp1\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.exe
+C:\Users\Podor\Documents\GitHub\kursovik-c-\WindowsFormsApp1\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.pdb
+C:\Users\Podor\Documents\GitHub\kursovik-c-\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.AssemblyReference.cache
+C:\Users\Podor\Documents\GitHub\kursovik-c-\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.SuggestedBindingRedirects.cache
+C:\Users\Podor\Documents\GitHub\kursovik-c-\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.AddData.resources
+C:\Users\Podor\Documents\GitHub\kursovik-c-\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Properties.Resources.resources
+C:\Users\Podor\Documents\GitHub\kursovik-c-\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.StartForm.resources
+C:\Users\Podor\Documents\GitHub\kursovik-c-\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.GenerateResource.cache
+C:\Users\Podor\Documents\GitHub\kursovik-c-\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.CoreCompileInputs.cache
+C:\Users\Podor\Documents\GitHub\kursovik-c-\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.exe
+C:\Users\Podor\Documents\GitHub\kursovik-c-\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.pdb
