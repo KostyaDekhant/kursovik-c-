@@ -103,6 +103,7 @@ namespace WindowsFormsApp1
         {
             YearsOfUni you = new YearsOfUni();
             you.setYearY(this.getYearsF(index_dir,index_you));
+            you.setCountGroupsY(index_gr+1);
             you.setGroupsY(gr, index_gr);
             this.setYearsF(you, index_dir, index_you);
         }

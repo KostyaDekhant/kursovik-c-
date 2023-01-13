@@ -81,7 +81,10 @@ namespace WindowsFormsApp1
                 fac[fac_index].setYearsF(you, dir_index, you_count);
                 you_count++;
             }
-            fac[fac_index].getDirF(dir_index).setYearsOfEdD(you_count);
+            Direction direct = new Direction();
+            direct.setDir(fac[fac_index].getDirF(dir_index));
+            direct.setYearsOfEdD(you_count);
+            fac[fac_index].setDirF(direct, dir_index);
             for (int i = 0; i < you_count; i++)
             {
                 GroupOpenFile(fac_index, dir_index, i);
@@ -95,15 +98,17 @@ namespace WindowsFormsApp1
                 + "\\" + "Groups.txt", Encoding.GetEncoding(1251));
             int gr_count = 0;
             Group group = new Group();
+            YearsOfUni you = new YearsOfUni();
             for (int i = 0; i < groups.Length; i ++)
             {
                 group.setNameG(groups[i]);
-                MessageBox.Show(group.getNameG());
                 fac[fac_index].setGroupsF(group, dir_index, you_index, gr_count);
                 gr_count++;
             }
-            //MessageBox.Show(fac[fac_index].getYearsF(dir_index, you_index).getGroupNameY(0));
-            fac[fac_index].getYearsF(dir_index, you_index).setCountGroupsY(gr_count);
+            
+            you = fac[fac_index].getYearsF(dir_index, you_index);
+            you.setCountGroupsY(gr_count);
+            fac[fac_index].setYearsF(you, dir_index, you_index);
             for (int i = 0; i < gr_count; i++)
             {
                  StudOpenFile(fac_index, dir_index, you_index, i);
