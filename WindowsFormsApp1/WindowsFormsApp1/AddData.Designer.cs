@@ -41,16 +41,16 @@
             this.del_bttn = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.maskedTextBox2 = new System.Windows.Forms.MaskedTextBox();
+            this.maskedTextBox_stud_count = new System.Windows.Forms.MaskedTextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.save_data_bttn = new System.Windows.Forms.Button();
             this.add_stud = new System.Windows.Forms.Button();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkBox_edit_grid = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.checkBox_name_gr = new System.Windows.Forms.CheckBox();
+            this.textBox_name_group = new System.Windows.Forms.TextBox();
             this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -63,7 +63,7 @@
             this.dir_label = new System.Windows.Forms.Label();
             this.faculty_add_bttn = new System.Windows.Forms.Button();
             this.new_f_label = new System.Windows.Forms.Label();
-            this.maskedTextBox3 = new System.Windows.Forms.MaskedTextBox();
+            this.maskedTextBox_groups = new System.Windows.Forms.MaskedTextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.add_groups = new System.Windows.Forms.Button();
             this.comboBox4 = new System.Windows.Forms.ComboBox();
@@ -184,12 +184,12 @@
             this.groupBox3.Controls.Add(this.del_bttn);
             this.groupBox3.Controls.Add(this.label5);
             this.groupBox3.Controls.Add(this.textBox1);
-            this.groupBox3.Controls.Add(this.maskedTextBox2);
+            this.groupBox3.Controls.Add(this.maskedTextBox_stud_count);
             this.groupBox3.Controls.Add(this.label4);
             this.groupBox3.Controls.Add(this.label1);
             this.groupBox3.Controls.Add(this.save_data_bttn);
             this.groupBox3.Controls.Add(this.add_stud);
-            this.groupBox3.Controls.Add(this.checkBox1);
+            this.groupBox3.Controls.Add(this.checkBox_edit_grid);
             this.groupBox3.Controls.Add(this.label3);
             this.groupBox3.ForeColor = System.Drawing.SystemColors.Control;
             this.groupBox3.Location = new System.Drawing.Point(913, 232);
@@ -227,12 +227,12 @@
             this.textBox1.Size = new System.Drawing.Size(120, 20);
             this.textBox1.TabIndex = 10;
             // 
-            // maskedTextBox2
+            // maskedTextBox_stud_count
             // 
-            this.maskedTextBox2.Location = new System.Drawing.Point(143, 20);
-            this.maskedTextBox2.Name = "maskedTextBox2";
-            this.maskedTextBox2.Size = new System.Drawing.Size(17, 20);
-            this.maskedTextBox2.TabIndex = 9;
+            this.maskedTextBox_stud_count.Location = new System.Drawing.Point(143, 20);
+            this.maskedTextBox_stud_count.Name = "maskedTextBox_stud_count";
+            this.maskedTextBox_stud_count.Size = new System.Drawing.Size(17, 20);
+            this.maskedTextBox_stud_count.TabIndex = 9;
             // 
             // label4
             // 
@@ -274,14 +274,15 @@
             this.add_stud.UseVisualStyleBackColor = true;
             this.add_stud.Click += new System.EventHandler(this.add_stud_Click);
             // 
-            // checkBox1
+            // checkBox_edit_grid
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(143, 54);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(15, 14);
-            this.checkBox1.TabIndex = 1;
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox_edit_grid.AutoSize = true;
+            this.checkBox_edit_grid.Location = new System.Drawing.Point(143, 54);
+            this.checkBox_edit_grid.Name = "checkBox_edit_grid";
+            this.checkBox_edit_grid.Size = new System.Drawing.Size(15, 14);
+            this.checkBox_edit_grid.TabIndex = 1;
+            this.checkBox_edit_grid.UseVisualStyleBackColor = true;
+            this.checkBox_edit_grid.CheckedChanged += new System.EventHandler(this.checkBox_edit_grid_CheckedChanged);
             // 
             // label3
             // 
@@ -294,8 +295,8 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.checkBox2);
-            this.groupBox1.Controls.Add(this.textBox2);
+            this.groupBox1.Controls.Add(this.checkBox_name_gr);
+            this.groupBox1.Controls.Add(this.textBox_name_group);
             this.groupBox1.Controls.Add(this.maskedTextBox1);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.label6);
@@ -308,7 +309,7 @@
             this.groupBox1.Controls.Add(this.dir_label);
             this.groupBox1.Controls.Add(this.faculty_add_bttn);
             this.groupBox1.Controls.Add(this.new_f_label);
-            this.groupBox1.Controls.Add(this.maskedTextBox3);
+            this.groupBox1.Controls.Add(this.maskedTextBox_groups);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.add_groups);
             this.groupBox1.ForeColor = System.Drawing.SystemColors.Control;
@@ -319,22 +320,22 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Создание объектов";
             // 
-            // checkBox2
+            // checkBox_name_gr
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(409, 129);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(119, 17);
-            this.checkBox2.TabIndex = 26;
-            this.checkBox2.Text = "Создать название";
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.checkBox_name_gr.AutoSize = true;
+            this.checkBox_name_gr.Location = new System.Drawing.Point(409, 129);
+            this.checkBox_name_gr.Name = "checkBox_name_gr";
+            this.checkBox_name_gr.Size = new System.Drawing.Size(119, 17);
+            this.checkBox_name_gr.TabIndex = 26;
+            this.checkBox_name_gr.Text = "Создать название";
+            this.checkBox_name_gr.UseVisualStyleBackColor = true;
             // 
-            // textBox2
+            // textBox_name_group
             // 
-            this.textBox2.Location = new System.Drawing.Point(302, 126);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 25;
+            this.textBox_name_group.Location = new System.Drawing.Point(302, 126);
+            this.textBox_name_group.Name = "textBox_name_group";
+            this.textBox_name_group.Size = new System.Drawing.Size(100, 20);
+            this.textBox_name_group.TabIndex = 25;
             // 
             // maskedTextBox1
             // 
@@ -444,12 +445,13 @@
             this.new_f_label.TabIndex = 13;
             this.new_f_label.Text = "Факультет";
             // 
-            // maskedTextBox3
+            // maskedTextBox_groups
             // 
-            this.maskedTextBox3.Location = new System.Drawing.Point(388, 100);
-            this.maskedTextBox3.Name = "maskedTextBox3";
-            this.maskedTextBox3.Size = new System.Drawing.Size(15, 20);
-            this.maskedTextBox3.TabIndex = 12;
+            this.maskedTextBox_groups.Location = new System.Drawing.Point(388, 100);
+            this.maskedTextBox_groups.Name = "maskedTextBox_groups";
+            this.maskedTextBox_groups.Size = new System.Drawing.Size(15, 20);
+            this.maskedTextBox_groups.TabIndex = 12;
+            this.maskedTextBox_groups.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.maskedTextBox_groups_KeyPress);
             // 
             // label2
             // 
@@ -603,16 +605,16 @@
         private System.Windows.Forms.Button del_bttn;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.MaskedTextBox maskedTextBox2;
+        private System.Windows.Forms.MaskedTextBox maskedTextBox_stud_count;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button save_data_bttn;
         private System.Windows.Forms.Button add_stud;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox checkBox_edit_grid;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.CheckBox checkBox_name_gr;
+        private System.Windows.Forms.TextBox textBox_name_group;
         private System.Windows.Forms.MaskedTextBox maskedTextBox1;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
@@ -625,7 +627,7 @@
         private System.Windows.Forms.Label dir_label;
         private System.Windows.Forms.Button faculty_add_bttn;
         private System.Windows.Forms.Label new_f_label;
-        private System.Windows.Forms.MaskedTextBox maskedTextBox3;
+        private System.Windows.Forms.MaskedTextBox maskedTextBox_groups;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button add_groups;
         public System.Windows.Forms.ComboBox comboBox4;

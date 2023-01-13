@@ -10,7 +10,7 @@ namespace WindowsFormsApp1
     public class YearsOfUni
     {
         private string year;
-        private Group[] group = new Group[6];
+        private Group[] group = new Group[10];
         private int year_of_start;
         private int count_groups;
 
@@ -60,7 +60,7 @@ namespace WindowsFormsApp1
             year = years.year;
             year_of_start = years.year_of_start;
             count_groups = years.count_groups;
-            for (int i = 0; i < count_groups; i++)
+            for (int i = 0; i < years.count_groups; i++)
             {
                 group[i] = new Group();
                 group[i].setGroup(years.getGroups(i));
@@ -72,7 +72,8 @@ namespace WindowsFormsApp1
         }
         public void setGroupsY(Group gr, int index_gr)
         {
-            group[index_gr] = gr;
+            group[index_gr] = new Group();
+            group[index_gr].setGroup(gr);
         }
         public void setCountGroupsY(int count)
         {

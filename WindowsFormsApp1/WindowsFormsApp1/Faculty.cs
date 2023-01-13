@@ -83,10 +83,12 @@ namespace WindowsFormsApp1
             you.setYearY(dir[index_dir].getYearsD(index_you));
             return you.getGroups(index_gr);
         }
-        //public Students getStudF(int index_dir, int index_you, int index_gr, int index_stud)
-        //{
-
-        //}
+        public Student getStudF(int index_dir, int index_you, int index_gr, int index_stud)
+        {
+            Group group = new Group();
+            group.setGroup(this.getGroupF(index_dir, index_you, index_gr));
+            return group.getStud(index_stud);
+        }
 
         public void setCountInDirF(int dir_count)
         {
@@ -107,7 +109,7 @@ namespace WindowsFormsApp1
         {
             YearsOfUni you = new YearsOfUni();
             you.setYearY(this.getYearsF(index_dir,index_you));
-            you.setCountGroupsY(index_gr+1);
+            //you.setCountGroupsY(index_gr+1);
             you.setGroupsY(gr, index_gr);
             this.setYearsF(you, index_dir, index_you);
         }
@@ -120,7 +122,7 @@ namespace WindowsFormsApp1
             this.setGroupsF(gr, index_dir, index_you, index_gr);
 
         }
-    public void setCountF(int count)
+        public void setCountF(int count)
         {
             count_facult = count;
         }
