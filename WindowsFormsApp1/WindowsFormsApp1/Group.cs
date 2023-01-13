@@ -43,7 +43,7 @@ namespace WindowsFormsApp1
             count_students = gr.count_students;
             for (int i = 0; i < stud.Length; i++)
             {
-                stud[i] = gr.stud[i];
+                stud[i].setStud(gr.stud[i]);
             }
         }
         public void setNameG(string name_gr)
@@ -57,7 +57,7 @@ namespace WindowsFormsApp1
         }
         public void setStudG(Student stud, int index_stud)
         {
-            //stud[index_stud].setStud(stud);
+            this.stud[index_stud].setStud(stud);
         }
     }
 }

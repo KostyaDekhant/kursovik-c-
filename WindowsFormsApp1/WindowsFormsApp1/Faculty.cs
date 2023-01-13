@@ -54,11 +54,13 @@ namespace WindowsFormsApp1
         }
         public int getCountInYearsF(int index_dir)
         {
-            return 0;
+            return this.dir[index_dir].getYearsOfEdD();
         }
         public int getCountInGroupsF(int index_dir, int index_you)
         {
-            return 0;
+            YearsOfUni you = new YearsOfUni();
+            you.setYearY(this.dir[index_dir].getYearsD(index_you));
+            return you.getCountGroupsY();
         }
 
         public void CreateDir(int dir_index)
@@ -75,10 +77,12 @@ namespace WindowsFormsApp1
             direction.setDir(dir[index_dir]);
             return direction.getYearsD(index_you);
         }
-        //public Groups getGroupF(int index_dir, int index_you, int index_gr)
-        //{
-
-        //}
+        public Group getGroupF(int index_dir, int index_you, int index_gr)
+        {
+            YearsOfUni you = new YearsOfUni();
+            you.setYearY(dir[index_dir].getYearsD(index_you));
+            return you.getGroups(index_gr);
+        }
         //public Students getStudF(int index_dir, int index_you, int index_gr, int index_stud)
         //{
 
@@ -107,11 +111,16 @@ namespace WindowsFormsApp1
             you.setGroupsY(gr, index_gr);
             this.setYearsF(you, index_dir, index_you);
         }
-        //public void setStudF(class Students& stud, int index_dir, int index_you, int index_gr, int index_stud)
-        //{
+        public void setStudF(Student stud, int index_dir, int index_you, int index_gr, int index_stud)
+        {
+            Group gr = new Group();
+            gr.setGroup(this.getGroupF(index_dir, index_you, index_gr));
+            gr.setCountStudG(index_stud + 1);
+            gr.setStudG(stud, index_stud);
+            this.setGroupsF(gr, index_dir, index_you, index_gr);
 
-        //}
-        public void setCountF(int count)
+        }
+    public void setCountF(int count)
         {
             count_facult = count;
         }

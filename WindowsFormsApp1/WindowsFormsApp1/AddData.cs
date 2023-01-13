@@ -117,7 +117,30 @@ namespace WindowsFormsApp1
 
         public void StudOpenFile(int fac_index, int dir_index, int you_index, int group_index)
         {
+            string[] students = System.IO.File.ReadAllLines(path + fac[fac_index].getNameF() + "\\"
+                + fac[fac_index].getDirNameF(dir_index) + "\\" + fac[fac_index].getDirF(dir_index).getYearsNameD(you_index)
+                + "\\" + "Groups.txt", Encoding.GetEncoding(1251));
+            int stud_count = 0;
+            Student stud = new Student();
+            Group group = new Group();
+            //YearsOfUni you = new YearsOfUni();
+            for (int i = 0; i < students.Length; i+=data_volume)
+            {
+                stud.setFIO(students[i], students[i + 1], students[i + 2]);
+                stud.setPhone_num(students[i + 3]);
+                stud.setGPA(Int32.Parse(students[i + 4]));
+                stud.setSpecial(Int32.Parse(students[i + 5]));
+                if(Int32.Parse(students[i + 6]) == 1)
+                    stud.setSocial(true);
+                else
+                    stud.setSocial(false);
+                fac[fac_index].setStudF(stud, dir_index, you_index, group_index, i/data_volume);
+                stud_count++;
+            }
 
+            group.setGroup(fac[fac_index].getGroupF(dir_index, you_index, group_index));
+            group.setCountStudG(stud_count);
+            fac[fac_index].setGroupsF(group, dir_index, you_index, group_index);
         }
 
         public void CreateDataGrid()
@@ -223,6 +246,12 @@ namespace WindowsFormsApp1
             }
             comboBox4.SelectedIndex = 0;
         }
+
+        public void StudentsPrint()
+        {
+
+        }
+
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
