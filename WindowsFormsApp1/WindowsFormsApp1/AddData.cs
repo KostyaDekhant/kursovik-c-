@@ -5,9 +5,11 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
@@ -21,13 +23,25 @@ namespace WindowsFormsApp1
         }
 
         public Faculty[] fac = new Faculty[10]; 
-        public string path = @"C:\Users\Podor\Documents\GitHub\kursovik-c-\WindowsFormsApp1\WindowsFormsApp1\Data\";
+        public static string path = @"C:\Users\Podor\Documents\GitHub\kursovik-c-\WindowsFormsApp1\WindowsFormsApp1\Data\";
         public int data_volume = 7;
         public Encoding enc = Encoding.GetEncoding(1251);
         public int year_now = 2022;
         public int[] Row_del_index = new int[200];
         public int[] DeletedRows = new int[200];
-        //public int count_facult = 0;
+        public int[] sholarship = new int[10];
+        public int total_money = 0;
+        public bool needsave = false;
+
+        public void OpenSholarshipFile()
+        {
+            string[] sholars = System.IO.File.ReadAllLines(path + "Sholarship.txt", Encoding.GetEncoding(1251));
+            for (int i = 0; i < sholars.Length; i++)
+            {
+                sholarship[i] = Int32.Parse(sholars[i]);
+            }
+        }
+
         public void FacultyOpenFile()
         {
             if(File.Exists(path + "Faculty.txt"))
@@ -189,7 +203,8 @@ namespace WindowsFormsApp1
             dataGridView1.Columns.Insert(4, cbc);
         }
 
-        public void FacultyComboBoxAdd()
+        public void FacultyComboBoxAdd(System.Windows.Forms.ComboBox comboBox1, System.Windows.Forms.ComboBox comboBox2,
+            System.Windows.Forms.ComboBox comboBox3, System.Windows.Forms.ComboBox comboBox4)
         {
             comboBox1.Items.Clear();
             int fac_count = fac[0].getCountF();
@@ -209,7 +224,8 @@ namespace WindowsFormsApp1
         }
 
 
-        public void DirectComboBoxAdd()
+        public void DirectComboBoxAdd(System.Windows.Forms.ComboBox comboBox1, System.Windows.Forms.ComboBox comboBox2,
+            System.Windows.Forms.ComboBox comboBox3, System.Windows.Forms.ComboBox comboBox4)
         {
             comboBox2.Items.Clear();
             int dir_count = fac[comboBox1.SelectedIndex].getCountInDirF();
@@ -231,7 +247,8 @@ namespace WindowsFormsApp1
             comboBox2.SelectedIndex = 0;
         }
 
-        public void YearsComboBoxAdd()
+        public void YearsComboBoxAdd(System.Windows.Forms.ComboBox comboBox1, System.Windows.Forms.ComboBox comboBox2,
+            System.Windows.Forms.ComboBox comboBox3, System.Windows.Forms.ComboBox comboBox4)
         {
             comboBox3.Items.Clear();
             Direction direct = new Direction();
@@ -254,7 +271,8 @@ namespace WindowsFormsApp1
             comboBox3.SelectedIndex = 0;
         }
 
-        public void GroupsComboBoxAdd()
+        public void GroupsComboBoxAdd(System.Windows.Forms.ComboBox comboBox1, System.Windows.Forms.ComboBox comboBox2,
+            System.Windows.Forms.ComboBox comboBox3, System.Windows.Forms.ComboBox comboBox4)
         {
             YearsOfUni you = new YearsOfUni();
 	        comboBox4.Items.Clear();
@@ -280,8 +298,13 @@ namespace WindowsFormsApp1
             comboBox4.SelectedIndex = 0;
         }
 
-        public void StudentsPrint(int fac_index, int dir_index, int you_index, int group_index)
+        public void StudentsPrint(int fac_index, int dir_index, int you_index, int group_index, DataGridView dataGridView1, Inq inq)
         {
+            if (inq == null)
+            {
+                Inq inq1 = new Inq();
+                inq = inq1;
+            }
             ClearGrid(dataGridView1.RowCount);
             Student stud = new Student();
             Group group = new Group();
@@ -289,20 +312,28 @@ namespace WindowsFormsApp1
             int count_stud_before = dataGridView1.RowCount;
             int count_stud = group.getCountStudG();
             int rows_added = count_stud_before;
-            for (int i = count_stud_before; i < count_stud_before+count_stud; i++)
+            for (int i = count_stud_before; i < count_stud_before + count_stud; i++)
             {
-                //if(
-                dataGridView1.RowCount += 1;
-                stud.setStud(fac[fac_index].getStudF(dir_index, you_index, group_index, i - count_stud_before));
-                dataGridView1.Rows[rows_added].Cells[0].Value = stud.getlastname() + " " + stud.getfirtname() + " " + stud.getmidname();
-                dataGridView1.Rows[rows_added].Cells[1].Value = stud.getPhone_num();
-                dataGridView1.Rows[rows_added].Cells[2].Value = stud.getGPA().ToString();
-                if(dataGridView1.ColumnCount == 5)
+                if (inq.CheckTextBoxes(fac_index, dir_index, you_index, group_index, i - count_stud_before))
                 {
-                    dataGridView1.Rows[rows_added].Cells[3].Value = stud.getSpecial().ToString();
-                    dataGridView1.Rows[rows_added].Cells[4].Value = stud.getSocial().ToString();
+                    dataGridView1.RowCount += 1;
+                    stud.setStud(fac[fac_index].getStudF(dir_index, you_index, group_index, i - count_stud_before));
+                    dataGridView1.Rows[rows_added].Cells[0].Value = stud.getlastname() + " " + stud.getfirstname() + " " + stud.getmidname();
+                    dataGridView1.Rows[rows_added].Cells[1].Value = stud.getPhone_num();
+                    dataGridView1.Rows[rows_added].Cells[2].Value = stud.getGPA().ToString();
+                    if (dataGridView1.ColumnCount == 5)
+                    {
+                        dataGridView1.Rows[rows_added].Cells[3].Value = stud.getSpecial().ToString();
+                        dataGridView1.Rows[rows_added].Cells[4].Value = stud.getSocial().ToString();
+                    }
+                    else
+                    {
+                        int sholar_calculation = Sholarship_Calculation(fac_index, dir_index, you_index, group_index, i - count_stud_before);
+                        dataGridView1.Rows[rows_added].Cells[3].Value = sholar_calculation;
+                        total_money += sholar_calculation;
+                    }
+                    rows_added++;
                 }
-                rows_added++;
             }
             if(rows_added > count_stud_before)
                 set_header_num(dataGridView1);
@@ -313,31 +344,89 @@ namespace WindowsFormsApp1
             dataGridView1.RowCount = 0;
         }
 
+        public int Sholarship_Calculation(int fac_index, int dir_index, int year_index, int group_index, int stud_index)
+        {
+
+            Student stud = new Student();
+            int sholar = 0;
+            stud = fac[fac_index].getStudF(dir_index, year_index, group_index, stud_index);
+            if (stud.getGPA() >= 90)
+            {
+                sholar += sholarship[0] * 2;
+            }
+            else if (stud.getGPA() >= 75)
+            {
+                sholar += (int)(sholarship[0] * 1.5);
+            }
+
+            else if (stud.getGPA() >= 50)
+            {
+                sholar += sholarship[0];
+            }
+            else if (stud.getSocial() == true)
+            {
+                sholar += sholarship[1];
+            }
+            if (stud.getSocial() == true && stud.getGPA() >= 50)
+            {
+                sholar += sholarship[2];
+            }
+            if (stud.getSpecial() != 0)
+            {
+                sholar += stud.getSpecial();
+            }
+            return sholar;
+        }
+
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DirectComboBoxAdd();
+            label_facult.Text = comboBox1.Text;
+            DirectComboBoxAdd(comboBox1, comboBox2, comboBox3, comboBox4);
         }
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            YearsComboBoxAdd();
+            string[] dir_name = comboBox2.Text.Split(' ');
+            if (comboBox2.Text.Length > 14)
+                label_dir.Text = dir_name[0];
+            else
+                label_dir.Text = comboBox2.Text;
+            YearsComboBoxAdd(comboBox1, comboBox2, comboBox3, comboBox4);
         }
 
         private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
         {
-            GroupsComboBoxAdd();
+            label_year.Text = comboBox3.Text;
+            GroupsComboBoxAdd(comboBox1, comboBox2, comboBox3, comboBox4);
         }
 
         private void comboBox4_SelectedIndexChanged(object sender, EventArgs e)
         {
-            StudentsPrint(comboBox1.SelectedIndex, comboBox2.SelectedIndex, comboBox3.SelectedIndex, comboBox4.SelectedIndex);
+            label_gr.Text = comboBox4.Text;
+            total_money = 0;
+            StudentsPrint(comboBox1.SelectedIndex, comboBox2.SelectedIndex, comboBox3.SelectedIndex, comboBox4.SelectedIndex, dataGridView1, null);
         }
 
         private void файлToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
+            {
+                path = folderBrowserDialog1.SelectedPath + "\\";
+            }
+            else
+            {
+                MessageBox.Show("Вы не выбрали репозиторий!");
+                return;
+            }
+            comboBox1.Items.Clear();
+            comboBox2.Items.Clear();
+            comboBox3.Items.Clear();
+            comboBox4.Items.Clear();
+            ClearGrid(dataGridView1.RowCount);
+            FacultyOpenFile();
+            FacultyComboBoxAdd(comboBox1, comboBox2, comboBox3, comboBox4);
+            MessageBox.Show("Данные обновлены!");
         }
-
         private void faculty_add_bttn_Click(object sender, EventArgs e)
         {
             if (textBox_faculty.Text != "")
@@ -353,7 +442,7 @@ namespace WindowsFormsApp1
                 MessageBox.Show("Готово!");
                 fac[0].setCountF(fac[0].getCountF() + 1);
                 FacultyOpenFile();
-                FacultyComboBoxAdd();
+                FacultyComboBoxAdd(comboBox1, comboBox2, comboBox3, comboBox4);
             }
             else
                 MessageBox.Show("Введите название факультета!");
@@ -389,18 +478,15 @@ namespace WindowsFormsApp1
                 MessageBox.Show("Готово!");
                 fac[comboBox1.SelectedIndex].setCountInDirF(fac[comboBox1.SelectedIndex].getCountInDirF() + 1);
                 DirectOpenFile(comboBox1.SelectedIndex);
-                DirectComboBoxAdd();
+                DirectComboBoxAdd(comboBox1, comboBox2, comboBox3, comboBox4);
             }
-            else
+            else if (textBox_directions.Text == "")
             {
-                if (textBox_directions.Text != "")
-                {
-                    MessageBox.Show("Введите название направления!");
-                }
-                if (maskedTextBox_directions.Text != "")
-                {
-                    MessageBox.Show("Введите количество курсов!");
-                }
+                MessageBox.Show("Введите название направления!");
+            }
+            else if(maskedTextBox_directions.Text == "")
+            {
+                MessageBox.Show("Введите количество курсов!");
             }
         }
         private void years_add_bttn_Click(object sender, EventArgs e)
@@ -409,7 +495,7 @@ namespace WindowsFormsApp1
         }
         private void add_groups_Click(object sender, EventArgs e)
         {
-            if(maskedTextBox_groups.Text != "" && maskedTextBox_groups.Text != "0")
+            if (maskedTextBox_groups.Text != "" && maskedTextBox_groups.Text != "0")
             {
                 string pathgroup = path + comboBox1.Text + "\\" + comboBox2.Text + "\\" + comboBox3.Text + "\\";
                 if (!File.Exists(pathgroup + "Groups.txt"))
@@ -418,7 +504,7 @@ namespace WindowsFormsApp1
                     file.Close();
                 }
                 string group_name_temp = "";
-                if(checkBox_name_gr.Checked == true && textBox_name_group.Text != "")
+                if (checkBox_name_gr.Checked == true && textBox_name_group.Text != "")
                 {
                     group_name_temp = textBox_name_group.Text;
                 }
@@ -429,7 +515,7 @@ namespace WindowsFormsApp1
                         MessageBox.Show("Название не было введено!");
                         checkBox_name_gr.Checked = false;
                     }
-                    string[] str = comboBox2.Text.Split(' ','-');
+                    string[] str = comboBox2.Text.Split(' ', '-');
                     for (int i = 0; i < str.Length; i++)
                     {
                         if (str[i].Length > 1)
@@ -448,48 +534,140 @@ namespace WindowsFormsApp1
                 for (int i = 0; i < gr_count; i++)
                 {
                     group_name = group_name_temp + (i + 1 + gr_count_before).ToString();
-                    System.IO.Directory.CreateDirectory(pathgroup+group_name);
+                    System.IO.Directory.CreateDirectory(pathgroup + group_name);
                     sr.WriteLine(group_name);
                 }
                 sr.Close();
                 GroupOpenFile(comboBox1.SelectedIndex, comboBox2.SelectedIndex, comboBox3.SelectedIndex);
-                GroupsComboBoxAdd();
+                GroupsComboBoxAdd(comboBox1, comboBox2, comboBox3, comboBox4);
             }
+            else
+                MessageBox.Show("Введите количество групп!");
         }
 
         
 
         private void del_fac_bttn_Click(object sender, EventArgs e)
         {
-
+            if (MessageBox.Show("Вы действительно хотите удалить \"" + label_facult.Text + "\"?", "",
+                MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                var facultfile = new StreamWriter(path + "Faculty.txt", false, enc);
+                int fac_count = fac[0].getCountF();
+                for (int i = 0; i < fac_count; i++)
+                {
+                    if(i != comboBox1.SelectedIndex)
+                    {
+                        facultfile.WriteLine(fac[i].getNameF());
+                    }
+                }
+                facultfile.Close();
+                System.IO.Directory.Move(path + fac[comboBox1.SelectedIndex].getNameF(), path + fac[comboBox1.SelectedIndex].getNameF() + " Временный");
+                for (int i = comboBox1.SelectedIndex; i < fac_count; i++)
+                {
+                    fac[i] = fac[i + 1];
+                }
+                fac[0].setCountF(fac_count-1);
+                FacultyComboBoxAdd(comboBox1, comboBox2, comboBox3, comboBox4);
+            }
         }
 
         private void del_dir_bttn_Click(object sender, EventArgs e)
         {
-
+            if (MessageBox.Show("Вы действительно хотите удалить \"" + label_dir.Text + "\"?", "",
+                MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                var dirfile = new StreamWriter(path + comboBox1.Text + "\\" + "Direction.txt", false, enc);
+                int dir_count = fac[comboBox1.SelectedIndex].getCountInDirF();
+                for (int i = 0; i < dir_count; i++)
+                {
+                    if (i != comboBox2.SelectedIndex)
+                    {
+                        dirfile.WriteLine(fac[comboBox1.SelectedIndex].getDirNameF(i));
+                        dirfile.WriteLine(fac[comboBox1.SelectedIndex].getDirF(i).getYearsOfEdD());
+                    }
+                }
+                dirfile.Close();
+                string dir_temp = path + fac[comboBox1.SelectedIndex].getNameF() + "\\" + fac[comboBox1.SelectedIndex].getDirNameF(comboBox2.SelectedIndex);
+                System.IO.Directory.Move(dir_temp, dir_temp + " Временный");
+                for (int i = comboBox2.SelectedIndex; i < dir_count; i++)
+                {
+                    fac[comboBox1.SelectedIndex].setDirF(fac[comboBox1.SelectedIndex].getDirF(i+1), i);
+                }
+                fac[comboBox1.SelectedIndex].setCountInDirF(dir_count - 1);
+                DirectComboBoxAdd(comboBox1, comboBox2, comboBox3, comboBox4);
+            }
         }
 
         private void del_year_bttn_Click(object sender, EventArgs e)
         {
-
+            if (MessageBox.Show("Вы действительно хотите удалить \"" + label_year.Text + "\"?", "",
+                MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                var yearfile = new StreamWriter(path + comboBox1.Text + "\\" + comboBox2.Text + "\\" + "YearsOfUni.txt", false, enc);
+                int years_count = fac[comboBox1.SelectedIndex].getDirF(comboBox2.SelectedIndex).getYearsOfEdD();
+                for (int i = 0; i < years_count; i++)
+                {
+                    if (i != comboBox3.SelectedIndex)
+                    {
+                        yearfile.WriteLine(fac[comboBox1.SelectedIndex].getDirF(comboBox2.SelectedIndex).getYearsNameD(i));
+                        yearfile.WriteLine(fac[comboBox1.SelectedIndex].getYearsF(comboBox2.SelectedIndex, i).getYearOfStartY());
+                    }
+                }
+                yearfile.Close();
+                string year_temp = path + comboBox1.Text + "\\" + comboBox2.Text + "\\" + comboBox3.Text;
+                System.IO.Directory.Move(year_temp, year_temp + " Временный");
+                for (int i = comboBox3.SelectedIndex; i < years_count; i++)
+                {
+                    fac[comboBox1.SelectedIndex].setYearsF(fac[comboBox1.SelectedIndex].getYearsF(comboBox2.SelectedIndex, i + 1), comboBox2.SelectedIndex, i);
+                }
+                fac[comboBox1.SelectedIndex].getDirF(comboBox2.SelectedIndex).setYearsOfEdD(years_count-1);
+                YearsComboBoxAdd(comboBox1, comboBox2, comboBox3, comboBox4);
+            }
         }
 
         private void del_gr_bttn_Click(object sender, EventArgs e)
         {
-
+            if (MessageBox.Show("Вы действительно хотите удалить \"" + label_gr.Text + "\"?", "",
+                MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                var groupfile = new StreamWriter(path + comboBox1.Text + "\\" + comboBox2.Text + "\\" + comboBox3.Text + "\\" + "Groups.txt", false, enc);
+                int group_count = fac[comboBox1.SelectedIndex].getYearsF(comboBox2.SelectedIndex, comboBox3.SelectedIndex).getCountGroupsY();
+                for (int i = 0; i < group_count; i++)
+                {
+                    if (i != comboBox4.SelectedIndex)
+                    {
+                        groupfile.WriteLine(fac[comboBox1.SelectedIndex].getYearsF(comboBox2.SelectedIndex, comboBox3.SelectedIndex).getGroupNameY(i));
+                    }
+                }
+                groupfile.Close();
+                string group_temp = path + comboBox1.Text + "\\" + comboBox2.Text + "\\" + comboBox3.Text + "\\" + comboBox4.Text;
+                System.IO.Directory.Move(group_temp, group_temp + " Временный");
+                for (int i = comboBox4.SelectedIndex; i < group_count; i++)
+                {
+                    fac[comboBox1.SelectedIndex].setGroupsF(fac[comboBox1.SelectedIndex].getGroupF(comboBox2.SelectedIndex, comboBox3.SelectedIndex, i+1), comboBox2.SelectedIndex, comboBox3.SelectedIndex, i);
+                }
+                fac[comboBox1.SelectedIndex].getYearsF(comboBox2.SelectedIndex, comboBox3.SelectedIndex).setCountGroupsY(group_count-1);
+                GroupsComboBoxAdd(comboBox1, comboBox2, comboBox3, comboBox4);
+            }
         }
 
         private void add_stud_Click(object sender, EventArgs e)
         {
-            int stud_count = Int32.Parse(maskedTextBox_stud_count.Text);
-            for (int i = 0; i < stud_count; i++)
+            if (maskedTextBox_stud_count.Text != "")
             {
-                dataGridView1.Rows.Add();
+                int stud_count = Int32.Parse(maskedTextBox_stud_count.Text);
+                for (int i = 0; i < stud_count; i++)
+                {
+                    dataGridView1.Rows.Add();
+                }
+                set_header_num(dataGridView1);
             }
-            set_header_num(dataGridView1);
+            else
+                MessageBox.Show("Введите количество студентов!");
         }
 
-        private void set_header_num(DataGridView dataGrid)
+        public void set_header_num(DataGridView dataGrid)
         {
             int grid_size = dataGrid.Rows.Count;
             for (int i = 0; i < grid_size; i++)
@@ -500,42 +678,47 @@ namespace WindowsFormsApp1
 
         private void del_bttn_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text[textBox1.Text.Length - 1] == 44 || textBox1.Text[textBox1.Text.Length - 1] == 45)
+            if (textBox1.Text != "")
             {
-                textBox1.Text = textBox1.Text.Remove(textBox1.Text.Length - 1);
-            }
-            int count_of_nums = 0;
-            int len_of_text = textBox1.Text.Length - 1;
-            int temp_num = 0;
-            int len_of_num = 0;
-            bool flag_for_end = false;
-            while (len_of_text >= 0)
-            {
-                if (Char.IsDigit(textBox1.Text[len_of_text]) && !flag_for_end)
+                if (textBox1.Text[textBox1.Text.Length - 1] == 44 || textBox1.Text[textBox1.Text.Length - 1] == 45)
                 {
-                    temp_num += (textBox1.Text[len_of_text] - '0') * (int)Math.Pow(10, len_of_num);
-                    len_of_num++;
+                    textBox1.Text = textBox1.Text.Remove(textBox1.Text.Length - 1);
                 }
-                else
+                int count_of_nums = 0;
+                int len_of_text = textBox1.Text.Length - 1;
+                int temp_num = 0;
+                int len_of_num = 0;
+                bool flag_for_end = false;
+                while (len_of_text >= 0)
                 {
-                    Row_del_index[count_of_nums] = temp_num;
-                    temp_num = 0;
-                    len_of_num = 0;
-                    if (textBox1.Text[len_of_text] == 44)
-                        Row_del_index[count_of_nums + 1] = -1;
-                    else if (textBox1.Text[len_of_text] == 45)
-                        Row_del_index[count_of_nums + 1] = -2;
-                    if (!flag_for_end)
-                        count_of_nums += 2;
+                    if (Char.IsDigit(textBox1.Text[len_of_text]) && !flag_for_end)
+                    {
+                        temp_num += (textBox1.Text[len_of_text] - '0') * (int)Math.Pow(10, len_of_num);
+                        len_of_num++;
+                    }
+                    else
+                    {
+                        Row_del_index[count_of_nums] = temp_num;
+                        temp_num = 0;
+                        len_of_num = 0;
+                        if (textBox1.Text[len_of_text] == 44)
+                            Row_del_index[count_of_nums + 1] = -1;
+                        else if (textBox1.Text[len_of_text] == 45)
+                            Row_del_index[count_of_nums + 1] = -2;
+                        if (!flag_for_end)
+                            count_of_nums += 2;
+                    }
+                    if (len_of_text == 0 && !flag_for_end)
+                        flag_for_end = true;
+                    else
+                        len_of_text--;
                 }
-                if (len_of_text == 0 && !flag_for_end)
-                    flag_for_end = true;
-                else
-                    len_of_text--;
+                sort_array(count_of_nums);
+                int RowCount_dg = dataGridView1.Rows.Count;
+                del_rows(count_of_nums, RowCount_dg);
             }
-            sort_array(count_of_nums);
-            int RowCount_dg = dataGridView1.Rows.Count;
-            del_rows(count_of_nums, RowCount_dg);
+            else
+                MessageBox.Show("Введите строки, которые нужно удалить!");
         }
 
         private bool RowWasDeleted(int[] DeletedRows, int rowindex, int rowcount)
@@ -693,7 +876,41 @@ namespace WindowsFormsApp1
         }
         private void save_data_bttn_Click(object sender, EventArgs e)
         {
+            SaveStudFile(comboBox1.SelectedIndex, comboBox2.SelectedIndex, comboBox3.SelectedIndex, comboBox4.SelectedIndex);
+        }
+
+        private void SaveStudFile(int fac_index, int dir_index, int you_index, int gr_index)
+        {
             int row_count = dataGridView1.RowCount;
+            Student stud = new Student();
+            string repos = comboBox1.Text + "\\" + comboBox2.Text + "\\" + comboBox3.Text + "\\" + comboBox4.Text + "\\";
+            var st = new StreamWriter(path + repos + "Students.txt", false, enc);
+            for (int i = 0; i < row_count; i++)
+            {
+                string[] FIO = dataGridView1.Rows[i].Cells[0].Value.ToString().Split(' ');
+                stud.setFIO(FIO[0], FIO[1], FIO[2]);
+                stud.setPhone_num(dataGridView1.Rows[i].Cells[1].Value.ToString());
+                stud.setGPA(Int32.Parse(dataGridView1.Rows[i].Cells[2].Value.ToString()));
+                stud.setSpecial(Int32.Parse(dataGridView1.Rows[i].Cells[3].Value.ToString()));
+                if (dataGridView1.Rows[i].Cells[4].Value.ToString() == "True")
+                    stud.setSocial(true);
+                else
+                    stud.setSocial(false);
+                fac[fac_index].setStudF(stud, dir_index, you_index, gr_index, i);
+                st.WriteLine(stud.getlastname());
+                st.WriteLine(stud.getfirstname());
+                st.WriteLine(stud.getmidname());
+                st.WriteLine(stud.getPhone_num());
+                st.WriteLine(stud.getGPA());
+                st.WriteLine(stud.getSpecial());
+                if(stud.getSocial())
+                    st.WriteLine("1");
+                else
+                    st.WriteLine("0");
+            }
+            st.Close();
+            MessageBox.Show("Данные успешно сохранены!");
+            needsave = false;
         }
 
         private void AddData_Load(object sender, EventArgs e)
@@ -704,9 +921,10 @@ namespace WindowsFormsApp1
             dataGridView1.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
             dataGridView1.ReadOnly = true;
             checkBox_edit_grid.Text = "Выключён";
+            OpenSholarshipFile();
             FacultyOpenFile();
             CreateDataGrid();
-            FacultyComboBoxAdd();
+            FacultyComboBoxAdd(comboBox1, comboBox2, comboBox3, comboBox4);
         }
         private void AddData_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -717,9 +935,12 @@ namespace WindowsFormsApp1
         {
             for (int i = 0; i < dataGridView1.RowCount; i++)
             {
-                if (dataGridView1[0, i].Value == null)
+                for (int j = 0; j < dataGridView1.ColumnCount; j++)
                 {
-                    return true;
+                    if (dataGridView1[j, i].Value == null)
+                    {
+                        return true;
+                    }
                 }
             }
             return false;
@@ -733,6 +954,7 @@ namespace WindowsFormsApp1
                 add_groups.Enabled = false;
                 add_stud.Enabled = false;
                 save_data_bttn.Enabled = false;
+                needsave = true;
             }
             else
             {
@@ -761,6 +983,17 @@ namespace WindowsFormsApp1
                 e.Handled = true;   
                 maskedTextBox_groups.Text = Convert.ToString(9 - groups_count_class);
             }
+        }
+
+        private void вернутьсяToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(needsave)
+            {
+                if (MessageBox.Show("Данные не сохранены! Вы действительно хотите выйти?", "",
+                MessageBoxButtons.YesNo) == DialogResult.No)
+                    return;
+            }
+            this.Close();
         }
     }
 }

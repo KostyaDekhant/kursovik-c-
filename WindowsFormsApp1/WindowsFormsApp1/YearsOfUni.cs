@@ -24,6 +24,18 @@ namespace WindowsFormsApp1
                 group[i] = new Group();
             }
         }
+        public YearsOfUni(YearsOfUni years)
+        {
+            year = years.year;
+            year_of_start = years.year_of_start;
+            count_groups = years.count_groups;
+            for (int i = 0; i < years.count_groups; i++)
+            {
+                group[i] = new Group();
+                group[i].setGroup(years.getGroups(i));
+            }
+        }
+
         public string getNameY()
         {
             return year; 

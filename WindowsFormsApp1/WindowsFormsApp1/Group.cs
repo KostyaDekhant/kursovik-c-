@@ -23,6 +23,16 @@ namespace WindowsFormsApp1
             }
         }
 
+        public Group(Group gr)
+        {
+            name_group = "";
+            count_students = 0;
+            for (int i = 0; i < stud.Length; i++)
+            {
+                stud[i] = new Student();
+            }
+        }
+
         public string getNameG()
         {
             return name_group;

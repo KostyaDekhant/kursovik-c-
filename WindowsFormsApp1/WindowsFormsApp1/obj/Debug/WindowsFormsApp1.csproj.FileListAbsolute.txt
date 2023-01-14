@@ -10,3 +10,4 @@ C:\Users\Podor\Documents\GitHub\kursovik-c-\WindowsFormsApp1\WindowsFormsApp1\ob
 C:\Users\Podor\Documents\GitHub\kursovik-c-\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.CoreCompileInputs.cache
 C:\Users\Podor\Documents\GitHub\kursovik-c-\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.exe
 C:\Users\Podor\Documents\GitHub\kursovik-c-\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.pdb
+C:\Users\Podor\Documents\GitHub\kursovik-c-\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Inq.resources

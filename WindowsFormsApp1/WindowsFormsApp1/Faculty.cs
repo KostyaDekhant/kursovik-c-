@@ -14,7 +14,6 @@ namespace WindowsFormsApp1
         private static int count_facult;
         private int count_dir = 0;
 
-
         public Faculty()
         {
             name_facult = "";
@@ -26,17 +25,18 @@ namespace WindowsFormsApp1
             }
         }
 
-        //public void setFaculty(Faculty faculty)
-        //{
-        //    name_facult = faculty.name_facult;
-        //    //count_facult = faculty.count_facult;
-        //    count_dir = faculty.count_dir;
-        //    for (int i = 0; i < count_dir; i++)
-        //    {
-        //        dir[i] = faculty.dir[i];
-        //    }
-        //}
-	    public string getNameF()
+        public Faculty(Faculty faculty)
+        {
+            name_facult = faculty.name_facult;
+            //count_facult = faculty.count_facult;
+            count_dir = faculty.count_dir;
+            for (int i = 0; i < count_dir; i++)
+            {
+                dir[i].setDir(faculty.dir[i]);
+            }
+        }
+
+        public string getNameF()
         {
             return name_facult;
         }

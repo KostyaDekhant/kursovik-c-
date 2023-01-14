@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
+            this.label_gr = new System.Windows.Forms.Label();
+            this.label_year = new System.Windows.Forms.Label();
+            this.label_dir = new System.Windows.Forms.Label();
+            this.label_facult = new System.Windows.Forms.Label();
             this.del_gr_bttn = new System.Windows.Forms.Button();
             this.del_year_bttn = new System.Windows.Forms.Button();
             this.del_dir_bttn = new System.Windows.Forms.Button();
@@ -74,6 +74,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.вернутьсяToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -83,10 +84,10 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.label11);
-            this.groupBox2.Controls.Add(this.label10);
-            this.groupBox2.Controls.Add(this.label9);
-            this.groupBox2.Controls.Add(this.label8);
+            this.groupBox2.Controls.Add(this.label_gr);
+            this.groupBox2.Controls.Add(this.label_year);
+            this.groupBox2.Controls.Add(this.label_dir);
+            this.groupBox2.Controls.Add(this.label_facult);
             this.groupBox2.Controls.Add(this.del_gr_bttn);
             this.groupBox2.Controls.Add(this.del_year_bttn);
             this.groupBox2.Controls.Add(this.del_dir_bttn);
@@ -99,41 +100,41 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Удаление объектов";
             // 
-            // label11
+            // label_gr
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(12, 114);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(42, 13);
-            this.label11.TabIndex = 7;
-            this.label11.Text = "Группа";
+            this.label_gr.AutoSize = true;
+            this.label_gr.Location = new System.Drawing.Point(12, 114);
+            this.label_gr.Name = "label_gr";
+            this.label_gr.Size = new System.Drawing.Size(42, 13);
+            this.label_gr.TabIndex = 7;
+            this.label_gr.Text = "Группа";
             // 
-            // label10
+            // label_year
             // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(12, 85);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(31, 13);
-            this.label10.TabIndex = 6;
-            this.label10.Text = "Курс";
+            this.label_year.AutoSize = true;
+            this.label_year.Location = new System.Drawing.Point(12, 85);
+            this.label_year.Name = "label_year";
+            this.label_year.Size = new System.Drawing.Size(31, 13);
+            this.label_year.TabIndex = 6;
+            this.label_year.Text = "Курс";
             // 
-            // label9
+            // label_dir
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(12, 55);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(75, 13);
-            this.label9.TabIndex = 5;
-            this.label9.Text = "Направление";
+            this.label_dir.AutoSize = true;
+            this.label_dir.Location = new System.Drawing.Point(12, 55);
+            this.label_dir.Name = "label_dir";
+            this.label_dir.Size = new System.Drawing.Size(75, 13);
+            this.label_dir.TabIndex = 5;
+            this.label_dir.Text = "Направление";
             // 
-            // label8
+            // label_facult
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(12, 28);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(63, 13);
-            this.label8.TabIndex = 4;
-            this.label8.Text = "Факультет";
+            this.label_facult.AutoSize = true;
+            this.label_facult.Location = new System.Drawing.Point(12, 28);
+            this.label_facult.Name = "label_facult";
+            this.label_facult.Size = new System.Drawing.Size(63, 13);
+            this.label_facult.TabIndex = 4;
+            this.label_facult.Text = "Факультет";
             // 
             // del_gr_bttn
             // 
@@ -552,6 +553,7 @@
             this.вернутьсяToolStripMenuItem.Name = "вернутьсяToolStripMenuItem";
             this.вернутьсяToolStripMenuItem.Size = new System.Drawing.Size(75, 20);
             this.вернутьсяToolStripMenuItem.Text = "Вернуться";
+            this.вернутьсяToolStripMenuItem.Click += new System.EventHandler(this.вернутьсяToolStripMenuItem_Click);
             // 
             // AddData
             // 
@@ -593,10 +595,10 @@
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label_gr;
+        private System.Windows.Forms.Label label_year;
+        private System.Windows.Forms.Label label_dir;
+        private System.Windows.Forms.Label label_facult;
         private System.Windows.Forms.Button del_gr_bttn;
         private System.Windows.Forms.Button del_year_bttn;
         private System.Windows.Forms.Button del_dir_bttn;
@@ -638,5 +640,6 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem файлToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem вернутьсяToolStripMenuItem;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
     }
 }

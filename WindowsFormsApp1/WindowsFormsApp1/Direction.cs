@@ -22,6 +22,18 @@ namespace WindowsFormsApp1
                 you[i] = new YearsOfUni();
             }
         }
+
+        public Direction(Direction direct)
+        {
+            name_dir = direct.name_dir;
+            year_of_ed = direct.year_of_ed;
+            for (int i = 0; i < year_of_ed; i++)
+            {
+                you[i] = new YearsOfUni();
+                you[i].setYearY(direct.you[i]);
+            }
+        }
+
         public string getNameD()
         {
             return name_dir;

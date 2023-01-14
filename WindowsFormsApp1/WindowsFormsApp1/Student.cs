@@ -26,7 +26,17 @@ namespace WindowsFormsApp1
             social_scholarship = false;
             special_scholarship = 0;
         }
-        public string getfirtname()
+        public Student(Student student)
+        {
+            firstname = student.firstname;
+            lastname = student.lastname;
+            midname = student.midname;
+            gpa = student.gpa;
+            phone_number = student.phone_number;
+            special_scholarship = student.special_scholarship;
+            social_scholarship = student.social_scholarship;
+        }
+        public string getfirstname()
         {
             return firstname;
         }
@@ -57,13 +67,13 @@ namespace WindowsFormsApp1
 
         public void setStud(Student student)
         {
-            firstname = student.firstname;
-            lastname = student.lastname;
-            midname = student.midname;
-            gpa = student.gpa;
-            phone_number = student.phone_number;
-            special_scholarship = student.special_scholarship;
-            social_scholarship = student.social_scholarship;
+            this.firstname = student.firstname;
+            this.lastname = student.lastname;
+            this.midname = student.midname;
+            this.gpa = student.gpa;
+            this.phone_number = student.phone_number;
+            this.special_scholarship = student.special_scholarship;
+            this.social_scholarship = student.social_scholarship;
         }
 
 	    public void setFIO(string lastname_s, string firstname_s, string midname_s)
